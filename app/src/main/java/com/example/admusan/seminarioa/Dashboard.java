@@ -17,6 +17,7 @@ public class Dashboard extends AppCompatActivity {
         Intent intent = null;
         switch (v.getId()){
             case R.id.dashboard_boton1:
+                intent = new Intent(this, QuotationActivity.class);
                 break;
             case R.id.dashboard_boton2:
                 intent = new Intent(this, FavouriteActivity.class);

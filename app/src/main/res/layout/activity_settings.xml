@@ -11,20 +11,20 @@
         android:layout_height="wrap_content">
 
         <TextView
-            android:id="@+id/textView"
+            android:id="@+id/settings_nombre_label"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginEnd="8dp"
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
             android:text="@string/Settings_nombre"
-            app:layout_constraintBottom_toTopOf="@+id/editText"
+            app:layout_constraintBottom_toTopOf="@+id/settings_nombre_insertar"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <EditText
-            android:id="@+id/editText"
+            android:id="@+id/settings_nombre_insertar"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginEnd="8dp"
@@ -33,51 +33,51 @@
             android:ems="10"
             android:inputType="textPersonName"
             android:text="@string/Settings_nombre_insertar"
-            app:layout_constraintBottom_toTopOf="@+id/textView2"
+            app:layout_constraintBottom_toTopOf="@+id/settings_lenguaje"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView" />
+            app:layout_constraintTop_toBottomOf="@+id/settings_nombre_label" />
 
         <TextView
-            android:id="@+id/textView2"
+            android:id="@+id/settings_lenguaje"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginEnd="8dp"
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
             android:text="@string/Settings_lenguaje"
-            app:layout_constraintBottom_toTopOf="@+id/spinner"
+            app:layout_constraintBottom_toTopOf="@+id/settings_spinner"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/editText" />
+            app:layout_constraintTop_toBottomOf="@+id/settings_nombre_insertar" />
 
         <Spinner
-            android:id="@+id/spinner"
+            android:id="@+id/settings_spinner"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginEnd="8dp"
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
-            app:layout_constraintBottom_toTopOf="@+id/textView3"
+            app:layout_constraintBottom_toTopOf="@+id/settings_radiogroup_texto"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView2" />
+            app:layout_constraintTop_toBottomOf="@+id/settings_lenguaje" />
 
         <TextView
-            android:id="@+id/textView3"
+            android:id="@+id/settings_radiogroup_texto"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginEnd="8dp"
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
             android:text="@string/Settings_radiogroup"
-            app:layout_constraintBottom_toTopOf="@+id/radioGroup"
+            app:layout_constraintBottom_toTopOf="@+id/settings_radiogroup"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/spinner" />
+            app:layout_constraintTop_toBottomOf="@+id/settings_spinner" />
 
         <RadioGroup
-            android:id="@+id/radioGroup"
+            android:id="@+id/settings_radiogroup"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginBottom="8dp"
@@ -87,10 +87,10 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView3">
+            app:layout_constraintTop_toBottomOf="@+id/settings_radiogroup_texto">
 
             <RadioButton
-                android:id="@+id/radioButton2"
+                android:id="@+id/settings_boton_radio_1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -98,7 +98,7 @@
                 android:text="@string/Settings_radio1" />
 
             <RadioButton
-                android:id="@+id/radioButton"
+                android:id="@+id/settings_boton_radio_2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"

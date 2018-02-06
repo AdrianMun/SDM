@@ -24,7 +24,12 @@
         <activity
             android:name=".SettingsActivity"
             android:label="@string/Settings_titulo" />
-        <activity android:name=".FavouriteActivity" android:label="@string/Favorite_titulo"></activity>
+        <activity
+            android:name=".FavouriteActivity"
+            android:label="@string/Favorite_titulo" />
+        <activity
+            android:name=".QuotationActivity"
+            android:label="@string/Quotation_titulo"/>
     </application>
 
 </manifest>

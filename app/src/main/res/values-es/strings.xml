@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="nombre_usuario">Sin nombre</string>
+    <string name="Dashboard_boton1">Obtener citas</string>
+    <string name="Dashboard_boton2">Citas favoritas</string>
+    <string name="Dashboard_boton3">Opciones</string>
+    <string name="Dashboard_boton4">Acerca de</string>
+    <string name="About_titulo">Acerca de</string>
+    <string name="About_info">QuotationShake por</string>
+    <string name="Quotation_titulo">Citas aleatorias</string>
+    <string name="Favorite_titulo">Citas favoritas</string>
+    <string name="Settings_titulo">Opciones</string>
+    <string name="Settings_nombre">Nombre que identifica al usuario</string>
+    <string name="Settings_nombre_insertar">Inserta tu nombre</string>
+    <string name="Settings_lenguaje">Las citas se recibirán en el lenguaje escogido</string>
+    <string name="Settings_radiogroup">Las peticiones web se harán usado el método HTTP seleccionado</string>
+    <string name="Favourite_button1">Informacion del autor</string>
+    <string name="Quotation_sample_quotation">Esto es un ejemplo de cita</string>
+    <string name="Quotation_sample_author">Esto es un ejemplo de autor</string>
+    <string name="Quotation_init_text">Hola %1s! Presione refrescar para obtener una cita nueva</string>
+</resources>
