@@ -1,0 +1,6 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item android:id="@+id/Add_favourites" android:icon="@android:drawable/ic_menu_add" android:visible="false" android:title="@string/Add"></item>
+    <item android:id="@+id/New_quote" android:icon="@android:drawable/ic_menu_rotate" app:showAsAction="always" android:title="@string/Refresh"></item>
+</menu>
