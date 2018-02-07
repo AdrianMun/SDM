@@ -22,4 +22,16 @@
     <string name="Quotation_sample_quotation">This is a sample quotation</string>
     <string name="Quotation_sample_author">This is a sample author</string>
 
+    <string name="no_existe">Author is annonymous</string>
+    <string name="message_builder">Are you sure that you want to delete this quotation?</string>
+    <string name="message_builder_favourite">Are you sure that you want to delete ALL your favourite quotations?</string>
+    <string name="yes">yes</string>
+    <string name="no">no</string>
+    <string name="Add">Add</string>
+    <string name="Refresh">Refresh</string>
+    <string name="Delete">Clear All</string>
+
+    <string name="English">English</string>
+    <string name="Russian">Russian</string>
+
 </resources>
