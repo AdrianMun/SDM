@@ -11,6 +11,7 @@
         android:layout_height="wrap_content">
 
         <TextView
+            style="@style/SettingsActivityTheme"
             android:id="@+id/settings_nombre_label"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -40,6 +41,7 @@
             app:layout_constraintTop_toBottomOf="@+id/settings_nombre_label" />
 
         <TextView
+            style="@style/SettingsActivityTheme"
             android:id="@+id/settings_lenguaje"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -66,6 +68,7 @@
             app:layout_constraintTop_toBottomOf="@+id/settings_lenguaje" />
 
         <TextView
+            style="@style/SettingsActivityTheme"
             android:id="@+id/settings_radiogroup_texto"
             android:layout_width="0dp"
             android:layout_height="wrap_content"

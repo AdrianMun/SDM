@@ -8,4 +8,14 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <style name="SettingsActivityTheme" >
+        <!-- Customize your theme here. -->
+        <item name="android:textAppearance">?android:attr/textAppearanceLarge</item>
+        <item name="android:textColor">@color/colorPrimaryDark</item>
+        <item name="android:textSize">@dimen/size</item>
+
+    </style>
+
+    <dimen name="size">22sp</dimen>
+
 </resources>
