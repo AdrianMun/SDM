@@ -4,4 +4,14 @@
         <item>English</item>
         <item>Russian</item>
     </array>
+
+    <string-array name="lista_idiomas_indice">
+        <item>0</item>
+        <item>1</item>
+    </string-array>
+
+    <array name="lista_http">
+        <item>get</item>
+        <item>post</item>
+    </array>
 </resources>

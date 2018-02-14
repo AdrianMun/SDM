@@ -1,5 +1,7 @@
 package com.example.admusan.seminarioa;
 
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -14,7 +16,8 @@ public class QuotationActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_quotation);
         TextView tv = findViewById(R.id.Quotation_quote);
-        tv.setText(getString(R.string.Quotation_init_text,getResources().getString(R.string.nombre_usuario)));
+        SharedPreferences prefs= PreferenceManager.getDefaultSharedPreferences(this);
+        tv.setText(getString(R.string.Quotation_init_text,prefs.getString("nombre_insertado","Nameless one")));
     }
 
     public boolean onCreateOptionsMenu(Menu menu){

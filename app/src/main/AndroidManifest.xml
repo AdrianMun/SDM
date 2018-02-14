@@ -21,39 +21,30 @@
         <activity
             android:name=".AboutActivity"
             android:label="@string/About_titulo"
-            android:parentActivityName="com.example.admusan.seminarioa.Dashboard">
+            android:parentActivityName=".Dashboard">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.example.admusan.seminarioa.Dashboard"
-                />
-        </activity>
-        <activity
-            android:name=".SettingsActivity"
-            android:label="@string/Settings_titulo"
-            android:parentActivityName="com.example.admusan.seminarioa.Dashboard">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.example.admusan.seminarioa.Dashboard"
-                />
+                android:value="com.example.admusan.seminarioa.Dashboard" />
         </activity>
         <activity
             android:name=".FavouriteActivity"
             android:label="@string/Favorite_titulo"
-            android:parentActivityName="com.example.admusan.seminarioa.Dashboard">
+            android:parentActivityName=".Dashboard">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.example.admusan.seminarioa.Dashboard"
-                />
+                android:value="com.example.admusan.seminarioa.Dashboard" />
         </activity>
         <activity
             android:name=".QuotationActivity"
             android:label="@string/Quotation_titulo"
-            android:parentActivityName="com.example.admusan.seminarioa.Dashboard">
+            android:parentActivityName=".Dashboard">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.example.admusan.seminarioa.Dashboard"
-                />
+                android:value="com.example.admusan.seminarioa.Dashboard" />
         </activity>
+        <activity
+            android:name=".SettingsActivity"
+            android:label="@string/title_activity_settings"></activity>
     </application>
 
 </manifest>
