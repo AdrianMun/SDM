@@ -19,8 +19,8 @@
     <string name="Settings_radio2">POST</string>
     <string name="Favourite_button1">Author info</string>
     <string name="Quotation_init_text">Hello  %1s!\nPress Refresh to get a new quotation</string>
-    <string name="Quotation_sample_quotation">This is a sample quotation</string>
-    <string name="Quotation_sample_author">This is a sample author</string>
+    <string name="Quotation_sample_quotation">Sample quote %1$d</string>
+    <string name="Quotation_sample_author">This is a sample author %1d</string>
 
     <string name="no_existe">Author is annonymous</string>
     <string name="message_builder">Are you sure that you want to delete this quotation?</string>

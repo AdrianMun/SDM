@@ -1,9 +1,11 @@
 package com.example.admusan.seminarioa;
 
+import android.annotation.SuppressLint;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.view.menu.MenuView;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -11,29 +13,59 @@ import android.widget.TextView;
 
 public class QuotationActivity extends AppCompatActivity {
 
+    private int received_quotes = 0;
+    private boolean set_add_visible = false;
+    Menu menu;
+
     @Override
+    @SuppressLint("StringFormatInvalid")
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_quotation);
-        TextView tv = findViewById(R.id.Quotation_quote);
-        SharedPreferences prefs= PreferenceManager.getDefaultSharedPreferences(this);
-        tv.setText(getString(R.string.Quotation_init_text,prefs.getString("nombre_insertado","Nameless one")));
+        TextView tv1 = findViewById(R.id.Quotation_quote);
+        if(savedInstanceState == null) {
+            SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
+            tv1.setText(getString(R.string.Quotation_init_text, prefs.getString("nombre_insertado", "Nameless one")));
+        }
+        else {
+            TextView tv2 = findViewById(R.id.Quotation_author);
+            received_quotes = savedInstanceState.getInt("received_quotes");
+            tv1.setText(getString(R.string.Quotation_sample_quotation, received_quotes));
+            tv2.setText(getString(R.string.Quotation_sample_author, received_quotes));
+            set_add_visible = savedInstanceState.getBoolean("add_visible");
+        }
     }
 
     public boolean onCreateOptionsMenu(Menu menu){
+        this.menu = menu;
         getMenuInflater().inflate(R.menu.action_bar_quotation,menu);
+        if(set_add_visible){
+            menu.findItem(R.id.Add_favourites).setVisible(true);
+        }
         return true;
     }
 
+    protected void onSaveInstanceState(Bundle bundle){
+        super.onSaveInstanceState(bundle);
+        bundle.putInt("received_quotes", received_quotes);
+        bundle.putBoolean("add_visible", menu.findItem(R.id.Add_favourites).isVisible());
+    }
+
+    @SuppressLint("StringFormatInvalid")
     public boolean onOptionsItemSelected(MenuItem item){
         switch (item.getItemId()){
             case R.id.Add_favourites:
+                item.setVisible(false);
                 return true;
             case R.id.New_quote:
                 TextView tv1 = findViewById(R.id.Quotation_quote);
                 TextView tv2 = findViewById(R.id.Quotation_author);
-                tv1.setText(R.string.Quotation_sample_quotation);
-                tv2.setText(R.string.Quotation_sample_author);
+                received_quotes++;
+                tv1.setText(getString(R.string.Quotation_sample_quotation, received_quotes));
+                tv2.setText(getString(R.string.Quotation_sample_author, received_quotes));
+
+                MenuItem menu_button = menu.findItem(R.id.Add_favourites);
+                menu_button.setVisible(true);
                 return true;
         }
         return super.onOptionsItemSelected(item);
