@@ -16,6 +16,7 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 
+import databases.SQL;
 import extras.Adaptador;
 import extras.Quotation;
 
@@ -28,7 +29,7 @@ public class FavouriteActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_favourite);
-        list = getMockQuotations();
+        list = SQL.getInstance(this).getQuotations();
         adaptador = new Adaptador(this, R.layout.quotation_list_row, list);
         ListView listView = findViewById(R.id.list_view_favourite);
         listView.setAdapter(adaptador);
@@ -56,6 +57,7 @@ public class FavouriteActivity extends AppCompatActivity {
                 builder.setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
+                        SQL.getInstance(FavouriteActivity.this).remove(list.get(pos).getCita());
                         list.remove(pos);
                         adaptador.notifyDataSetChanged();
                     }
@@ -82,7 +84,7 @@ public class FavouriteActivity extends AppCompatActivity {
                     public void onClick(DialogInterface dialog, int which) {
                         list.clear();
                         adaptador.notifyDataSetChanged();
-                        item.setVisible(false);
+                        SQL.getInstance(FavouriteActivity.this).removeAll();
                     }
                 });
                 builder.setNegativeButton(R.string.no, null);

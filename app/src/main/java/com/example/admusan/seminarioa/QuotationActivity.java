@@ -11,6 +11,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 
+import databases.SQL;
+
 public class QuotationActivity extends AppCompatActivity {
 
     private int received_quotes = 0;
@@ -53,19 +55,22 @@ public class QuotationActivity extends AppCompatActivity {
 
     @SuppressLint("StringFormatInvalid")
     public boolean onOptionsItemSelected(MenuItem item){
+        TextView tv1 = findViewById(R.id.Quotation_quote);
+        TextView tv2 = findViewById(R.id.Quotation_author);
         switch (item.getItemId()){
             case R.id.Add_favourites:
                 item.setVisible(false);
+                SQL.getInstance(this).insertQuote(tv1.getText().toString(), tv2.getText().toString());
                 return true;
             case R.id.New_quote:
-                TextView tv1 = findViewById(R.id.Quotation_quote);
-                TextView tv2 = findViewById(R.id.Quotation_author);
                 received_quotes++;
+                String quote = getString(R.string.Quotation_sample_quotation, received_quotes);
                 tv1.setText(getString(R.string.Quotation_sample_quotation, received_quotes));
                 tv2.setText(getString(R.string.Quotation_sample_author, received_quotes));
-
-                MenuItem menu_button = menu.findItem(R.id.Add_favourites);
-                menu_button.setVisible(true);
+                if(!SQL.getInstance(this).isQuote(quote)) {
+                    MenuItem menu_button = menu.findItem(R.id.Add_favourites);
+                    menu_button.setVisible(true);
+                }
                 return true;
         }
         return super.onOptionsItemSelected(item);
