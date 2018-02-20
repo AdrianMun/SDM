@@ -2,7 +2,9 @@ package com.example.admusan.seminarioa;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
+import android.preference.PreferenceManager;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -16,6 +18,8 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 
+import databases.AbstractData;
+import databases.DaoInterface;
 import databases.SQL;
 import extras.Adaptador;
 import extras.Quotation;
@@ -24,15 +28,25 @@ public class FavouriteActivity extends AppCompatActivity {
 
     ArrayList<Quotation> list;
     Adaptador adaptador;
+    String BaseDeDatos;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_favourite);
-        list = SQL.getInstance(this).getQuotations();
+
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
+
+        BaseDeDatos=prefs.getString("BaseDeDatos", "0");
+
+        if(BaseDeDatos.equals("0")) list = SQL.getInstance(this).getQuotations();
+        else list= new ArrayList<Quotation>(AbstractData.getInstance(this).daoInterface().getList());
+
         adaptador = new Adaptador(this, R.layout.quotation_list_row, list);
         ListView listView = findViewById(R.id.list_view_favourite);
         listView.setAdapter(adaptador);
+
+
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener(){
             public void onItemClick(AdapterView<?> parent, View view, int pos, long id) {
@@ -57,7 +71,10 @@ public class FavouriteActivity extends AppCompatActivity {
                 builder.setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        SQL.getInstance(FavouriteActivity.this).remove(list.get(pos).getCita());
+                        if(BaseDeDatos.equals("0"))SQL.getInstance(FavouriteActivity.this).remove(list.get(pos).getCita());
+                        else {
+                            AbstractData.getInstance(FavouriteActivity.this).daoInterface().delete(list.get(pos));
+                        }
                         list.remove(pos);
                         adaptador.notifyDataSetChanged();
                     }
@@ -84,7 +101,8 @@ public class FavouriteActivity extends AppCompatActivity {
                     public void onClick(DialogInterface dialog, int which) {
                         list.clear();
                         adaptador.notifyDataSetChanged();
-                        SQL.getInstance(FavouriteActivity.this).removeAll();
+                        if(BaseDeDatos.equals("0")) SQL.getInstance(FavouriteActivity.this).removeAll();
+                        else AbstractData.getInstance(FavouriteActivity.this).daoInterface().deleteAll();
                     }
                 });
                 builder.setNegativeButton(R.string.no, null);

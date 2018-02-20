@@ -9,14 +9,19 @@ import android.support.v7.view.menu.MenuView;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.BaseAdapter;
 import android.widget.TextView;
 
+import databases.AbstractData;
 import databases.SQL;
+import extras.Quotation;
 
 public class QuotationActivity extends AppCompatActivity {
 
     private int received_quotes = 0;
     private boolean set_add_visible = false;
+    String BaseDeDatos;
+
     Menu menu;
 
     @Override
@@ -24,9 +29,15 @@ public class QuotationActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_quotation);
+
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
+
+        BaseDeDatos=prefs.getString("BaseDeDatos", "0");
+
         TextView tv1 = findViewById(R.id.Quotation_quote);
+
         if(savedInstanceState == null) {
-            SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
+
             tv1.setText(getString(R.string.Quotation_init_text, prefs.getString("nombre_insertado", "Nameless one")));
         }
         else {
@@ -60,17 +71,28 @@ public class QuotationActivity extends AppCompatActivity {
         switch (item.getItemId()){
             case R.id.Add_favourites:
                 item.setVisible(false);
-                SQL.getInstance(this).insertQuote(tv1.getText().toString(), tv2.getText().toString());
+                if( BaseDeDatos.equals("0"))SQL.getInstance(this).insertQuote(tv1.getText().toString(), tv2.getText().toString());
+                else AbstractData.getInstance(this).daoInterface().insert(new Quotation(tv1.getText().toString(), tv2.getText().toString()));
                 return true;
             case R.id.New_quote:
                 received_quotes++;
                 String quote = getString(R.string.Quotation_sample_quotation, received_quotes);
                 tv1.setText(getString(R.string.Quotation_sample_quotation, received_quotes));
                 tv2.setText(getString(R.string.Quotation_sample_author, received_quotes));
+                if(BaseDeDatos.equals("0")){
                 if(!SQL.getInstance(this).isQuote(quote)) {
                     MenuItem menu_button = menu.findItem(R.id.Add_favourites);
                     menu_button.setVisible(true);
-                }
+                }}
+                else {
+                    if(AbstractData.getInstance(this).daoInterface().search(quote)==null) {
+                        MenuItem menu_button = menu.findItem(R.id.Add_favourites);
+                        menu_button.setVisible(true);
+                    }}
+
+
+
+
                 return true;
         }
         return super.onOptionsItemSelected(item);

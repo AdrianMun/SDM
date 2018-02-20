@@ -14,4 +14,9 @@
         <item>get</item>
         <item>post</item>
     </array>
+
+    <string-array name="BaseDeDatos">
+        <item>SQLiteOpenHelper</item>
+        <item>Room</item>
+    </string-array>
 </resources>

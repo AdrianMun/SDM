@@ -1,9 +1,13 @@
 package com.example.admusan.seminarioa;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+
+import databases.AbstractData;
 
 public class Dashboard extends AppCompatActivity {
 
@@ -11,7 +15,16 @@ public class Dashboard extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dashboard);
-    }
+
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
+
+        if(prefs.getBoolean("first_run", true)) {
+            AbstractData.getInstance(this).daoInterface().search("");
+            prefs.edit().putBoolean("first_run",false);
+
+        }
+        }
+
 
     public void dashboard_callback(View v){
         Intent intent = null;

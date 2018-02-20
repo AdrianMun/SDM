@@ -21,6 +21,13 @@
           android:key="http_insertado" />
     </PreferenceCategory>
 
+  <PreferenceCategory>
+    <ListPreference
+        android:title="@string/Settings_lenguaje"
+        android:entries="@array/BaseDeDatos"
+        android:entryValues="@array/lista_idiomas_indice"
+        android:key="BaseDeDatos" />
+  </PreferenceCategory>
 
 
 </PreferenceScreen>
