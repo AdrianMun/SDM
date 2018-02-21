@@ -9,8 +9,6 @@ import android.widget.TextView;
 
 import com.example.admusan.seminarioa.R;
 
-import org.w3c.dom.Text;
-
 import java.util.ArrayList;
 
 /**
@@ -38,9 +36,9 @@ public class Adaptador extends ArrayAdapter<Quotation>{
         }
         Quotation d = data.get(posicion);
         TextView tv1 = (TextView) view.findViewById(R.id.texto_cita);
-        tv1.setText(d.getCita());
+        tv1.setText(d.getQuoteText());
         TextView tv2 = (TextView) view.findViewById(R.id.texto_autor);
-        tv2.setText(d.getAutor());
+        tv2.setText(d.getQuoteAuthor());
         return view;
     }
 }

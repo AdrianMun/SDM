@@ -16,28 +16,28 @@ public class Quotation {
 
 
     @ColumnInfo (name="quote") @NonNull
-    String cita="";
+    private String quoteText="";
     @ColumnInfo (name="author")
-    private String autor;
+    private String quoteAuthor;
     public Quotation(){}
     public Quotation(String c, String a){
-        cita = c;
-        autor = a;
+        quoteText = c;
+        quoteAuthor = a;
     }
 
-    public String getCita(){
-        return cita;
+    public String getQuoteText(){
+        return quoteText;
     }
 
-    public String getAutor(){
-        return autor;
+    public String getQuoteAuthor(){
+        return quoteAuthor;
     }
 
-    public void setAutor(String a){
-        autor = a;
+    public void setQuoteAuthor(String a){
+        quoteAuthor = a;
     }
 
-    public void setCita(String c){
-        cita = c;
+    public void setQuoteText(String c){
+        quoteText = c;
     }
 }

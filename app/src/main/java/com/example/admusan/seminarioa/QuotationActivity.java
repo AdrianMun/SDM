@@ -2,15 +2,15 @@ package com.example.admusan.seminarioa;
 
 import android.annotation.SuppressLint;
 import android.content.SharedPreferences;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.view.menu.MenuView;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.BaseAdapter;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
@@ -77,10 +77,12 @@ public class QuotationActivity extends AppCompatActivity {
                 else AbstractData.getInstance(this).daoInterface().insert(new Quotation(tv1.getText().toString(), tv2.getText().toString()));
                 item.setVisible(false);
                 return true;
-            case R.id.New_quote:
+            case R.id.New_quote: //Refresh
                 //item.setVisible(false);
-                task = new MyAddAsyncTask(this);
-                task.execute();
+                if(isInternetAvailable()) {
+                    task = new MyAddAsyncTask(this);
+                    task.execute();
+                }
 
                 return true;
         }
@@ -102,24 +104,42 @@ public class QuotationActivity extends AppCompatActivity {
     }
 
     public void add(Quotation q){
-        final String quote = q.getCita();
+        final String quote = q.getQuoteText();
         tv1.setText(quote);
-        tv2.setText(q.getAutor());
+        tv2.setText(q.getQuoteAuthor());
         ProgressBar pb = findViewById(R.id.Quotation_progress);
         pb.setVisibility(View.INVISIBLE);
         menu.setGroupVisible(0, true);
         MenuItem item = menu.findItem(R.id.Add_favourites);
         item.setVisible(false);
-        if(BaseDeDatos.equals("0")){
-            if(!SQL.getInstance(QuotationActivity.this).isQuote(quote)) {
-                set_add_visible = true;
-                supportInvalidateOptionsMenu();
-            }}
+        if(BaseDeDatos.equals("0")) {
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    if (!SQL.getInstance(QuotationActivity.this).isQuote(quote)) {
+                        set_add_visible = true;
+                        supportInvalidateOptionsMenu();
+                    }
+                }
+            }).start();
+        }
         else {
-            if(AbstractData.getInstance(QuotationActivity.this).daoInterface().search(quote)==null) {
-                set_add_visible = true;
-                supportInvalidateOptionsMenu();
-            }}
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    if (AbstractData.getInstance(QuotationActivity.this).daoInterface().search(quote) == null) {
+                        set_add_visible = true;
+                        supportInvalidateOptionsMenu();
+                    }
+                }
+            }).start();
+        }
+    }
+
+    public boolean isInternetAvailable(){
+        ConnectivityManager manager = (ConnectivityManager) getSystemService(CONNECTIVITY_SERVICE);
+        NetworkInfo info = manager.getActiveNetworkInfo();
+        return info != null && info.isConnected();
     }
 
     @Override

@@ -13,14 +13,12 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import databases.AbstractData;
-import databases.DaoInterface;
 import databases.SQL;
 import extras.Adaptador;
 import extras.Quotation;
@@ -56,13 +54,13 @@ public class FavouriteActivity extends AppCompatActivity {
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener(){
             public void onItemClick(AdapterView<?> parent, View view, int pos, long id) {
-                if(list.get(pos).getAutor().equals("")){
+                if(list.get(pos).getQuoteAuthor().equals("")){
                     Toast.makeText(FavouriteActivity.this, R.string.no_existe, Toast.LENGTH_SHORT).show();
                 }
                 else {
                     Intent intent = new Intent();
                     intent.setAction(Intent.ACTION_VIEW);
-                    intent.setData(Uri.parse("http://en.wikipedia.org/wiki/Special:Search?search=" + list.get(pos).getAutor()));
+                    intent.setData(Uri.parse("http://en.wikipedia.org/wiki/Special:Search?search=" + list.get(pos).getQuoteAuthor()));
                     if (intent.resolveActivity(getPackageManager()) != null) {
                         startActivity(intent);
                     }
@@ -82,7 +80,7 @@ public class FavouriteActivity extends AppCompatActivity {
                         new Thread(new Runnable(){
                             public void run(){
 
-                                if(BaseDeDatos.equals("0"))SQL.getInstance(FavouriteActivity.this).remove(to_delete.getCita());
+                                if(BaseDeDatos.equals("0"))SQL.getInstance(FavouriteActivity.this).remove(to_delete.getQuoteText());
                                 else {
                                     AbstractData.getInstance(FavouriteActivity.this).daoInterface().delete(to_delete);
                                 }
