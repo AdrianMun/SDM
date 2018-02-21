@@ -17,18 +17,22 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import databases.AbstractData;
 import databases.DaoInterface;
 import databases.SQL;
 import extras.Adaptador;
 import extras.Quotation;
+import tasks.MyAsyncTask;
 
 public class FavouriteActivity extends AppCompatActivity {
 
     ArrayList<Quotation> list;
     Adaptador adaptador;
     String BaseDeDatos;
+    Menu menu;
+    boolean delete_visible = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,15 +40,17 @@ public class FavouriteActivity extends AppCompatActivity {
         setContentView(R.layout.activity_favourite);
 
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
-
         BaseDeDatos=prefs.getString("BaseDeDatos", "0");
 
-        if(BaseDeDatos.equals("0")) list = SQL.getInstance(this).getQuotations();
-        else list= new ArrayList<Quotation>(AbstractData.getInstance(this).daoInterface().getList());
 
+        this.list = new ArrayList<Quotation>();
         adaptador = new Adaptador(this, R.layout.quotation_list_row, list);
         ListView listView = findViewById(R.id.list_view_favourite);
         listView.setAdapter(adaptador);
+        Boolean array[] = new Boolean[1];
+        array[0] = new Boolean(prefs.getString("BaseDeDatos", "0").equals("0"));
+        MyAsyncTask task = new MyAsyncTask(this);
+        task.execute(array);
 
 
 
@@ -68,13 +74,25 @@ public class FavouriteActivity extends AppCompatActivity {
             public boolean onItemLongClick(AdapterView<?> parent, View view, final int pos, long id) {
                 AlertDialog.Builder builder = new AlertDialog.Builder(FavouriteActivity.this);
                 builder.setMessage(R.string.message_builder);
+                final Quotation to_delete = list.get(pos);
                 builder.setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        if(BaseDeDatos.equals("0"))SQL.getInstance(FavouriteActivity.this).remove(list.get(pos).getCita());
-                        else {
-                            AbstractData.getInstance(FavouriteActivity.this).daoInterface().delete(list.get(pos));
-                        }
+
+                        new Thread(new Runnable(){
+                            public void run(){
+
+                                if(BaseDeDatos.equals("0"))SQL.getInstance(FavouriteActivity.this).remove(to_delete.getCita());
+                                else {
+                                    AbstractData.getInstance(FavouriteActivity.this).daoInterface().delete(to_delete);
+                                }
+                                if(list.size() == 0){
+                                    delete_visible = false;
+                                    supportInvalidateOptionsMenu();
+                                }
+                            }
+                        }).start();
+
                         list.remove(pos);
                         adaptador.notifyDataSetChanged();
                     }
@@ -88,6 +106,7 @@ public class FavouriteActivity extends AppCompatActivity {
 
     public boolean onCreateOptionsMenu(Menu menu){
         getMenuInflater().inflate(R.menu.action_bar_favourite,menu);
+        if(delete_visible) menu.findItem(R.id.Delete).setVisible(true);
         return true;
     }
 
@@ -101,8 +120,19 @@ public class FavouriteActivity extends AppCompatActivity {
                     public void onClick(DialogInterface dialog, int which) {
                         list.clear();
                         adaptador.notifyDataSetChanged();
-                        if(BaseDeDatos.equals("0")) SQL.getInstance(FavouriteActivity.this).removeAll();
-                        else AbstractData.getInstance(FavouriteActivity.this).daoInterface().deleteAll();
+
+                        new Thread(new Runnable(){
+                            public void run(){
+
+                                if(BaseDeDatos.equals("0")) SQL.getInstance(FavouriteActivity.this).removeAll();
+                                else AbstractData.getInstance(FavouriteActivity.this).daoInterface().deleteAll();
+                                delete_visible = false;
+                                supportInvalidateOptionsMenu();
+                            }
+                        }).start();
+
+
+
                     }
                 });
                 builder.setNegativeButton(R.string.no, null);
@@ -128,6 +158,16 @@ public class FavouriteActivity extends AppCompatActivity {
         return list;
     }
 
+
+    public void addQuote(List<Quotation> list){
+
+        this.list.addAll(list);
+        adaptador.notifyDataSetChanged();
+        if(this.list.size() > 0){
+            delete_visible = true;
+            supportInvalidateOptionsMenu();
+        }
+    }
 
     }
 

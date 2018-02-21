@@ -17,9 +17,19 @@ public class Dashboard extends AppCompatActivity {
         setContentView(R.layout.activity_dashboard);
 
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
-
         if(prefs.getBoolean("first_run", true)) {
-            AbstractData.getInstance(this).daoInterface().search("");
+            new Thread(new Runnable(){
+                public void run(){
+
+                    AbstractData.getInstance(Dashboard.this).daoInterface().search("");
+
+
+                }
+
+
+
+            }).start();
+
             prefs.edit().putBoolean("first_run",false);
 
         }

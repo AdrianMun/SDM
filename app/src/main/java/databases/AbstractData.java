@@ -17,7 +17,7 @@ public abstract class AbstractData extends RoomDatabase {
     public synchronized static AbstractData getInstance(Context context){
 
         if(Data == null){
-           Data = Room.databaseBuilder(context,AbstractData.class,"quotation_database").allowMainThreadQueries().build();
+           Data = Room.databaseBuilder(context,AbstractData.class,"quotation_database").build();
         }
         return Data;
     };
